@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     remotePatterns: [
       {
@@ -11,9 +10,6 @@ const nextConfig = {
         pathname: '/storage/v1/object/public/**',
       },
     ],
-  },
-  experimental: {
-    serverActions: true,
   },
   webpack: (config) => {
     config.resolve.fallback = { fs: false, net: false, tls: false };

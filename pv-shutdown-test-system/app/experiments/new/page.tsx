@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import DashboardLayout from '@/components/layout/DashboardLayout'
 import { createClient } from '@/lib/supabase/client'
@@ -9,7 +9,7 @@ import { Database } from '@/types/database'
 type Device = Database['public']['Tables']['devices']['Row']
 type TestStandard = Database['public']['Tables']['test_standards']['Row']
 
-export default function NewExperimentPage() {
+function NewExperimentContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const supabase = createClient()
@@ -296,5 +296,13 @@ export default function NewExperimentPage() {
         </form>
       </div>
     </DashboardLayout>
+  )
+}
+
+export default function NewExperimentPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NewExperimentContent />
+    </Suspense>
   )
 }

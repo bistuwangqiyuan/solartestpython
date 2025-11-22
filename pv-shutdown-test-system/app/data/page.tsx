@@ -51,7 +51,7 @@ export default function DataManagementPage() {
           let metadata: ParsedData['metadata'] = {}
           let dataStartRow = 0
           
-          if (jsonData.length > 1 && typeof jsonData[1][0] === 'string' && jsonData[1][0].includes('记录时间')) {
+          if (jsonData.length > 1 && Array.isArray(jsonData[1]) && typeof jsonData[1][0] === 'string' && jsonData[1][0].includes('记录时间')) {
             const metaRow = jsonData[1] as string[]
             metaRow.forEach(cell => {
               if (typeof cell === 'string') {
@@ -78,7 +78,7 @@ export default function DataManagementPage() {
           )
           
           // Convert to objects
-          const parsedRows = dataRows.map(row => {
+          const parsedRows = dataRows.map((row: any) => {
             const obj: any = {}
             headers.forEach((header, index) => {
               obj[header] = row[index]
